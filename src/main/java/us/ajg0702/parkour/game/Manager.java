@@ -1,6 +1,7 @@
 package us.ajg0702.parkour.game;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -35,6 +36,8 @@ public class Manager implements Listener {
 
 	List<PkArea> areas = new ArrayList<>();
 
+	List<String> disabledCommands;
+
 	Main main;
 
 	Messages msgs;
@@ -44,6 +47,8 @@ public class Manager implements Listener {
 		main = pl;
 
 		msgs = main.msgs;
+
+		disabledCommands = main.getConfig().getStringList("disabled-commands");
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(pl, this::reloadPositions, 5);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(main, this::checkActive, 15*20, 60*20);
@@ -262,6 +267,21 @@ public class Manager implements Listener {
 		for(PkPlayer p : plys) {
 			p.end();
 		}
+	}
+
+	@EventHandler
+	public void onCommand(PlayerCommandPreprocessEvent event) {
+		String message = event.getMessage().toLowerCase();
+
+		PkPlayer pkPlayer = getPlayer(event.getPlayer());
+		if (pkPlayer == null)
+			return;
+
+		for (String blocked : disabledCommands)
+			if (message.startsWith(blocked + " ") || message.equalsIgnoreCase(blocked)) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(ChatColor.RED + "This command cannot be used while you are playing parkour.");
+			}
 	}
 
 	@EventHandler

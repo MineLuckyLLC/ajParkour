@@ -55,6 +55,10 @@ parkour-inventory: true
 #  Example: 'disabledWorld1,disabledWorld2'
 start-disabled-worlds: disabledWorld1,disabledWorld2
 
+disabled-commands:
+  - "/keys"
+  - "/key"
+
 # How long, in seconds, after a player doesn't move should we kick them from the parkour?
 # Set to -1 to disable
 #  Default: 60
