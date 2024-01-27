@@ -3,6 +3,7 @@ package us.ajg0702.parkour.api.events;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import us.ajg0702.parkour.game.Difficulty;
 
 /**
  * Event called when a player falls or gets kicked from the parkour
@@ -20,9 +21,11 @@ public class PlayerEndParkourEvent extends Event {
     }
     Player ply;
     int fallscore;
-    public PlayerEndParkourEvent(Player p, int fallscore) {
+    Difficulty difficulty;
+    public PlayerEndParkourEvent(Player p, int fallscore, Difficulty difficulty) {
     	this.ply = p;
     	this.fallscore = fallscore;
+        this.difficulty = difficulty;
     }
     
     /**
@@ -39,5 +42,13 @@ public class PlayerEndParkourEvent extends Event {
      */
     public int getFallScore() {
     	return fallscore;
+    }
+
+    /**
+     * Gets the difficulty of the area the player was at when they fell
+     * @return The difficulty of the area they were at when they fell
+     */
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 }
