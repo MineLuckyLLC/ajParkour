@@ -21,10 +21,12 @@ public class PlayerEndParkourEvent extends Event {
     }
     Player ply;
     int fallscore;
+    String areaName;
     Difficulty difficulty;
-    public PlayerEndParkourEvent(Player p, int fallscore, Difficulty difficulty) {
+    public PlayerEndParkourEvent(Player p, int fallscore, String areaName, Difficulty difficulty) {
     	this.ply = p;
     	this.fallscore = fallscore;
+        this.areaName = areaName;
         this.difficulty = difficulty;
     }
     
@@ -43,6 +45,12 @@ public class PlayerEndParkourEvent extends Event {
     public int getFallScore() {
     	return fallscore;
     }
+
+    /**
+     * Gets the area name of the area the player was at when they fell
+     * @return The name of the area they were at when they fell
+     */
+    public String getAreaName() { return areaName; }
 
     /**
      * Gets the difficulty of the area the player was at when they fell

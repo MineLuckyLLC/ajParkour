@@ -477,7 +477,7 @@ public class PkPlayer implements Listener {
 			Rewards.staticExecuteCommands(cmds, getPlayer());
 		}
 		
-		PlayerEndParkourEvent ee = new PlayerEndParkourEvent(ply, score, area.getDifficulty());
+		PlayerEndParkourEvent ee = new PlayerEndParkourEvent(ply, score, area.getName(), area.getDifficulty());
 		Bukkit.getPluginManager().callEvent(ee);
 	}
 	
